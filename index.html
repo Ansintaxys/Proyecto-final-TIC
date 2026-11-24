@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aprende a Programar</title>
+<meta name="description" content="Curso de Algoritmos y Programación: algoritmos, pseudocódigo, diagramas de flujo, Python, pandas y JavaScript.">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/portada.css">
+</head>
+<body class="es-portada">
+<header id="cabecera">
+  <div class="in">
+    <a class="marca" href="index.html">Algoritmos y Programación</a>
+    <div class="cab-der">
+      <span class="curso">Práctica final · FIEI</span>
+      <nav class="mas" aria-label="Más páginas">
+        <a href="paginas/conclusiones.html">Conclusiones</a>
+        <a href="paginas/bibliografia.html">Bibliografía</a>
+      </nav>
+    </div>
+  </div>
+</header>
+<nav id="menu" aria-label="Menú del curso">
+  <div class="in">
+    <a href="index.html" aria-current="page">Portada</a>
+    <a href="paginas/inicio.html">Inicio</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="paginas/fundamentos/algoritmo.html">Algoritmo</a>
+    <a href="paginas/fundamentos/pseudocodigo.html">Pseudocódigo</a>
+    <a href="paginas/fundamentos/diagramas.html">Diagramas de Flujo</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="paginas/python/python_basico.html">Python Básico</a>
+    <a href="paginas/python/python_pandas.html">Pandas</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="paginas/web/javascript.html">JavaScript</a>
+    <a href="paginas/web/js_canvas.html">JS: Canvas</a>
+    <a href="paginas/web/js_datos.html">JS: Datos</a>
+    <a href="paginas/web/html_css.html">HTML y CSS</a>
+  </div>
+</nav>
+
+<main class="portada">
+
+  <!-- Columna izquierda: título + asistente stickman -->
+  <section class="hero">
+    <p class="eyebrow">Curso de algoritmos y programación</p>
+    <h1>Aprende a Programar</h1>
+    <p class="sub">De la lógica al código: algoritmos, pseudocódigo, diagramas de flujo, Python, pandas y JavaScript.</p>
+
+    <div class="acciones">
+      <a class="boton boton-principal" href="paginas/inicio.html">Ir al índice del curso &rarr;</a>
+      <a class="enlace-sec" href="paginas/fundamentos/algoritmo.html">Empezar por el algoritmo</a>
+    </div>
+
+    <div id="animacion-container">
+      <img id="stick-imagen" src="assets/img/stick1.png" alt="Asistente stickman" width="176" height="455">
+      <div class="burbuja" id="burbuja">¡Hola! Pulsa el botón y te cuento por dónde empezar.</div>
+      <button id="boton-animacion" type="button">▶ Iniciar animación</button>
+    </div>
+
+    <audio id="audio-asistente" preload="auto">
+      <source src="assets/audio/asistente.mp3" type="audio/mpeg">
+    </audio>
+  </section>
+
+  <!-- Columna derecha: salas de práctica -->
+  <aside id="info" aria-labelledby="titulo-salas">
+    <h2 id="titulo-salas">Salas de práctica</h2>
+    <div id="laboratorioNombre"></div>
+    <div id="listaSalas"></div>
+    <p id="resumen"></p>
+    <button id="boton-actualizar" type="button">↻ Actualizar estado de las salas</button>
+    <a class="boton-entrar" href="paginas/inicio.html">Entrar al sitio</a>
+    <p class="nota">Estado de las salas y tiempos de liberación simulados.</p>
+  </aside>
+
+</main>
+
+<footer id="pie">
+  <div class="contacto">
+    <div class="in">
+      <div>
+        <h2>¿Te gustó el estilo de esta página?</h2>
+        <p>Si quieres una web con un estilo parecido o tienes una idea, escríbeme.</p>
+      </div>
+      <a class="correo" href="mailto:angeluxpr@gmail.com?subject=Me%20gust%C3%B3%20el%20estilo%20de%20tu%20p%C3%A1gina">angeluxpr@gmail.com</a>
+    </div>
+  </div>
+  <div class="in">
+    <p>&copy; <span id="anio"></span> Práctica final FIEI por Alzamora</p>
+    <p>Algoritmos y Programación &middot; <a href="paginas/conclusiones.html">Conclusiones</a> &middot; <a href="paginas/bibliografia.html">Bibliografía</a></p>
+  </div>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>

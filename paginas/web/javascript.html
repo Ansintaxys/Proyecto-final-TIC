@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript · Algoritmos y Programación</title>
+<meta name="description" content="Variables, decisiones y cómo hacer que una página reaccione.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link href="../../css/estilos.css" type="text/css" rel="stylesheet">
+<link href="../../css/asistente.css" type="text/css" rel="stylesheet">
+</head>
+<body data-asistente="JavaScript hace que la página piense y reaccione. Aquí ves variables, tipos de datos, listas y el saludo de este sitio. Al final hay dos páginas más: Canvas y datos.">
+<header id="cabecera">
+  <div class="in">
+    <a class="marca" href="../../index.html">Algoritmos y Programación</a>
+    <div class="cab-der">
+      <span class="curso">Práctica final · FIEI</span>
+      <nav class="mas" aria-label="Más páginas">
+        <a href="../conclusiones.html">Conclusiones</a>
+        <a href="../bibliografia.html">Bibliografía</a>
+      </nav>
+    </div>
+  </div>
+</header>
+<nav id="menu" aria-label="Menú del curso">
+  <div class="in">
+    <a href="../../index.html">Portada</a>
+    <a href="../inicio.html">Inicio</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="../fundamentos/algoritmo.html">Algoritmo</a>
+    <a href="../fundamentos/pseudocodigo.html">Pseudocódigo</a>
+    <a href="../fundamentos/diagramas.html">Diagramas de Flujo</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="../python/python_basico.html">Python Básico</a>
+    <a href="../python/python_pandas.html">Pandas</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="../web/javascript.html" aria-current="page">JavaScript</a>
+    <a href="../web/js_canvas.html">JS: Canvas</a>
+    <a href="../web/js_datos.html">JS: Datos</a>
+    <a href="../web/html_css.html">HTML y CSS</a>
+  </div>
+</nav>
+<section class="encabezado" aria-labelledby="titulo-pagina">
+  <div class="in">
+    <div>
+    <p class="capitulo">Módulo 03 · Web · Tema 6</p>
+    <h1 id="titulo-pagina">JavaScript</h1>
+    <p id="saludo-texto" class="saludo-barra"></p>
+    </div>
+    <img class="ilustracion" src="../../assets/img/ilustraciones/javascript.svg" alt="" width="272" height="170">
+  </div>
+</section>
+<div id="cuerpo">
+<main id="contenido">
+<h2>¿Qué es JavaScript?</h2>
+<hr>
+<p><strong>JavaScript</strong> es un lenguaje de programación que se ejecuta en el navegador. Sirve para que una página haga cosas: calcular, decidir y escribir texto. Un <strong>script</strong> es un conjunto de instrucciones que el navegador sigue de arriba hacia abajo, igual que un algoritmo.</p>
+
+<h2>Cómo agregar un script</h2>
+<hr>
+<p>Se usa la etiqueta <code>&lt;script&gt;</code>. Puede ir dentro de la página o en un archivo aparte:</p>
+<pre><code>&lt;script&gt;
+  document.write("Hola");
+&lt;/script&gt;
+
+&lt;script src="java.js"&gt;&lt;/script&gt;</code></pre>
+<p>El texto aparece en el lugar de la página donde se pone el <code>&lt;script&gt;</code>.</p>
+
+<h2>Comentarios</h2>
+<hr>
+<p>Un comentario es una nota para quien lee el código; el navegador no lo ejecuta:</p>
+<pre><code>// Comentario de una línea
+
+/* Comentario
+   de varias líneas */</code></pre>
+
+<h2>Variables</h2>
+<hr>
+<p>Una variable es un espacio donde se guarda un dato, como en pseudocódigo. Se crea con <strong>var</strong> y se le da un valor con el signo <strong>=</strong> (asignación). Reglas del nombre: sin espacios, no puede empezar con un número y las mayúsculas cuentan (<code>edad</code> no es lo mismo que <code>Edad</code>).</p>
+<pre><code>var nombre = "Ana";
+var edad = 17;
+edad = edad + 1;
+document.write(nombre + " tiene " + edad + " años.");</code></pre>
+<p>Resultado en esta página:</p>
+<p class="salida"><script>
+var nombre = "Ana";
+var edad = 17;
+edad = edad + 1;
+document.write(nombre + " tiene " + edad + " años.");
+</script></p>
+
+<h2>Tipos de datos</h2>
+<hr>
+<table>
+  <tr>
+    <th>Tipo</th>
+    <th>Qué guarda</th>
+    <th>Ejemplo</th>
+  </tr>
+  <tr>
+    <td>Número</td>
+    <td>Números, con o sin decimales.</td>
+    <td><code>var nota = 15;</code></td>
+  </tr>
+  <tr>
+    <td>Texto (string)</td>
+    <td>Letras entre comillas.</td>
+    <td><code>var nombre = "Ana";</code></td>
+  </tr>
+  <tr>
+    <td>Booleano</td>
+    <td>Solo true (verdadero) o false (falso).</td>
+    <td><code>var aprobado = true;</code></td>
+  </tr>
+</table>
+
+<h2>Listas (arrays)</h2>
+<hr>
+<p>Una lista guarda varios datos en una sola variable, entre corchetes. Se cuenta desde 0: el primer dato es la posición 0.</p>
+<pre><code>var notas = [15, 12, 18];
+document.write("Primera nota: " + notas[0]);</code></pre>
+<p class="salida"><script>
+var notas = [15, 12, 18];
+document.write("Primera nota: " + notas[0]);
+</script></p>
+
+<h2>Operadores</h2>
+<hr>
+<p>Con los operadores <code>+</code> <code>-</code> <code>*</code> <code>/</code> se hacen cálculos. El signo <code>+</code> también une textos.</p>
+<pre><code>var base = 4;
+var altura = 7;
+var area = base * altura;
+document.write("Área: " + area);</code></pre>
+<p class="salida"><script>
+var base = 4;
+var altura = 7;
+var area = base * altura;
+document.write("Área: " + area);
+</script></p>
+
+<h2>Escribir en la página</h2>
+<hr>
+<p>La instrucción <strong>document.write()</strong> escribe en la página lo que lleva entre paréntesis: texto entre comillas, variables o ambos unidos con <code>+</code>. Es lo que usamos en los ejemplos de arriba.</p>
+
+<h2>El saludo de este sitio</h2>
+<hr>
+<p>El saludo de este sitio (panel en el Inicio y una línea en cada página) usa varias ideas de JavaScript (archivo <code>js/java.js</code>):</p>
+<pre><code>// Función que recibe la hora y devuelve el saludo
+function obtenerSaludo(hora) {
+  if (hora &lt; 12) { return "Buenos días"; }
+  else if (hora &lt; 19) { return "Buenas tardes"; }
+  else { return "Buenas noches"; }
+}
+
+// DOM: buscar un elemento y cambiar su texto
+var saludo = obtenerSaludo(new Date().getHours());
+document.getElementById("saludo-texto").innerHTML = saludo;
+
+// Evento onclick en un botón del HTML
+// &lt;button onclick="cambiarColor()"&gt;Cambiar color&lt;/button&gt;
+
+// Número al azar para elegir un color de la lista
+var i = Math.floor(Math.random() * colores.length);
+document.querySelector("#saludo").style.backgroundColor = colores[i];
+
+// Temporizador: repite una función cada 1000 milisegundos
+setInterval(function () { segundos = segundos + 1; }, 1000);</code></pre>
+<ul>
+  <li>Una <strong>función</strong> con <code>return</code> devuelve un resultado; aquí, el saludo según la hora.</li>
+  <li><code>getElementById</code> y <code>querySelector</code> buscan un elemento; <code>innerHTML</code> cambia su contenido.</li>
+  <li><code>Math.random()</code> da un decimal entre 0 y 1; con <code>Math.floor()</code> sale una posición al azar de la lista.</li>
+  <li><code>setInterval(función, milisegundos)</code> repite una función: así el contador sube cada segundo.</li>
+  <li><code>onclick</code> detecta el clic del botón "Cambiar color": el color solo cambia cuando lo presionas.</li>
+</ul>
+
+<h2>Python y JavaScript</h2>
+<hr>
+<table>
+  <tr>
+    <th>Idea</th>
+    <th>Python</th>
+    <th>JavaScript</th>
+  </tr>
+  <tr>
+    <td>Variable</td>
+    <td><code>nota = 15</code></td>
+    <td><code>var nota = 15;</code></td>
+  </tr>
+  <tr>
+    <td>Mostrar</td>
+    <td><code>print(nota)</code></td>
+    <td><code>document.write(nota);</code></td>
+  </tr>
+  <tr>
+    <td>Otra condición</td>
+    <td><code>elif</code></td>
+    <td><code>else if</code></td>
+  </tr>
+  <tr>
+    <td>Comentario</td>
+    <td><code># nota</code></td>
+    <td><code>// nota</code></td>
+  </tr>
+</table>
+<h2>Más JavaScript</h2>
+<hr>
+<p>Con esto ya sabes lo básico. Dos páginas más muestran lo que se puede hacer con JavaScript dentro del navegador:</p>
+<ul>
+  <li><a href="js_canvas.html">JS: Canvas</a>: dibujar formas, pintar con el mouse, guardar el dibujo y hacer animaciones.</li>
+  <li><a href="js_datos.html">JS: Datos y archivos</a>: recordar datos con localStorage, hacer una cuenta regresiva y leer archivos.</li>
+</ul>
+<p>Para ver cómo se conecta con la página, sigue con <a href="html_css.html">HTML y CSS</a>.</p>
+
+<nav class="paginado" aria-label="Anterior y siguiente">
+  <a class="ant" href="../python/python_pandas.html"><small>&larr; Anterior</small><span>Pandas</span></a>
+  <a class="sig" href="../web/js_canvas.html"><small>Siguiente &rarr;</small><span>JS: Canvas</span></a>
+</nav>
+</main>
+<aside id="riel"></aside>
+</div>
+<footer id="pie">
+  <div class="contacto">
+    <div class="in">
+      <div>
+        <h2>¿Te gustó el estilo de esta página?</h2>
+        <p>Si quieres una web con un estilo parecido o tienes una idea, escríbeme.</p>
+      </div>
+      <a class="correo" href="mailto:angeluxpr@gmail.com?subject=Me%20gust%C3%B3%20el%20estilo%20de%20tu%20p%C3%A1gina">angeluxpr@gmail.com</a>
+    </div>
+  </div>
+  <div class="in">
+    <p>&copy; <span id="anio"></span> Práctica final FIEI por Alzamora</p>
+    <p>Algoritmos y Programación &middot; <a href="../conclusiones.html">Conclusiones</a> &middot; <a href="../bibliografia.html">Bibliografía</a></p>
+  </div>
+</footer>
+<script src="../../js/java.js"></script>
+<script src="../../js/asistente.js"></script>
+</body>
+</html>

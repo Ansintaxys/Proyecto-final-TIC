@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript: Canvas · Algoritmos y Programación</title>
+<meta name="description" content="Dibujar con JavaScript: formas, mouse y animación.">
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<link href="../../css/estilos.css" type="text/css" rel="stylesheet">
+<link href="../../css/asistente.css" type="text/css" rel="stylesheet">
+</head>
+<body data-asistente="Canvas es un lienzo donde JavaScript dibuja. Prueba pintar con el mouse y mira la animación: borra y vuelve a dibujar cada cuadro, igual que yo cuando me muevo.">
+<header id="cabecera">
+  <div class="in">
+    <a class="marca" href="../../index.html">Algoritmos y Programación</a>
+    <div class="cab-der">
+      <span class="curso">Práctica final · FIEI</span>
+      <nav class="mas" aria-label="Más páginas">
+        <a href="../conclusiones.html">Conclusiones</a>
+        <a href="../bibliografia.html">Bibliografía</a>
+      </nav>
+    </div>
+  </div>
+</header>
+<nav id="menu" aria-label="Menú del curso">
+  <div class="in">
+    <a href="../../index.html">Portada</a>
+    <a href="../inicio.html">Inicio</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="../fundamentos/algoritmo.html">Algoritmo</a>
+    <a href="../fundamentos/pseudocodigo.html">Pseudocódigo</a>
+    <a href="../fundamentos/diagramas.html">Diagramas de Flujo</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="../python/python_basico.html">Python Básico</a>
+    <a href="../python/python_pandas.html">Pandas</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a href="../web/javascript.html">JavaScript</a>
+    <a href="../web/js_canvas.html" aria-current="page">JS: Canvas</a>
+    <a href="../web/js_datos.html">JS: Datos</a>
+    <a href="../web/html_css.html">HTML y CSS</a>
+  </div>
+</nav>
+<section class="encabezado" aria-labelledby="titulo-pagina">
+  <div class="in">
+    <div>
+    <p class="capitulo">Módulo 03 · Web · Tema 7</p>
+    <p class="ruta"><a href="javascript.html">JavaScript</a> &rsaquo; Canvas</p>
+    <h1 id="titulo-pagina">JavaScript: dibujar con Canvas</h1>
+    <p id="saludo-texto" class="saludo-barra"></p>
+    </div>
+    <img class="ilustracion" src="../../assets/img/ilustraciones/js_canvas.svg" alt="" width="272" height="170">
+  </div>
+</section>
+<div id="cuerpo">
+<main id="contenido">
+<h2>¿Qué es Canvas?</h2>
+<hr>
+<p>La etiqueta <code>&lt;canvas&gt;</code> es un lienzo en blanco dentro de la página. JavaScript le pide su <strong>contexto 2D</strong> y con él dibuja formas, texto e imágenes. Hasta ahora el código escribía texto; con Canvas el resultado se puede <strong>ver</strong>.</p>
+<pre><code>&lt;canvas id="lienzo" width="300" height="150"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  var lienzo = document.getElementById("lienzo");
+  var ctx = lienzo.getContext("2d");
+&lt;/script&gt;</code></pre>
+
+<h2>Formas y texto</h2>
+<hr>
+<p>Cada instrucción dibuja sobre el lienzo usando coordenadas: <strong>x</strong> va hacia la derecha e <strong>y</strong> hacia abajo, empezando en la esquina superior izquierda (0, 0).</p>
+<pre><code>ctx.fillStyle = "#3e5c76";
+ctx.fillRect(20, 20, 120, 80);          // rectángulo: x, y, ancho, alto
+
+ctx.beginPath();
+ctx.arc(220, 60, 40, 0, Math.PI * 2);   // círculo: x, y, radio, ángulo inicial y final
+ctx.fillStyle = "#8aa9c4";
+ctx.fill();
+
+ctx.fillStyle = "#1d2d44";
+ctx.font = "20px Arial";
+ctx.fillText("Hola canvas", 20, 130);   // texto: contenido, x, y</code></pre>
+<div class="demo">
+  <p>Resultado:</p>
+  <canvas id="c-formas" width="300" height="150"></canvas>
+</div>
+
+<h2>Dibujar con el mouse</h2>
+<hr>
+<p>El evento <code>pointermove</code> se dispara cada vez que el puntero se mueve (sirve con mouse y con el dedo). Si el botón está presionado (<code>e.buttons === 1</code>), se traza una línea desde la posición anterior hasta la actual.</p>
+<pre><code>var pos = { x: 0, y: 0 };
+
+function guardarPosicion(e) {
+  pos.x = e.offsetX;      // posición dentro del canvas
+  pos.y = e.offsetY;
+}
+
+function dibujar(e) {
+  if (e.buttons !== 1) { return; }   // solo con el botón presionado
+  ctx.beginPath();
+  ctx.moveTo(pos.x, pos.y);          // desde donde estaba...
+  guardarPosicion(e);
+  ctx.lineTo(pos.x, pos.y);          // ...hasta donde está ahora
+  ctx.strokeStyle = color.value;
+  ctx.lineWidth = grosor.value;
+  ctx.lineCap = "round";
+  ctx.stroke();
+}
+
+lienzo.addEventListener("pointermove", dibujar);</code></pre>
+<div class="demo">
+  <p>
+    <label>Color: <input type="color" id="color" value="#1d2d44"></label>
+    <label>Grosor: <input type="range" id="grosor" min="1" max="30" value="6"></label>
+  </p>
+  <canvas id="c-dibujo" class="libre" width="500" height="260"></canvas>
+  <button type="button" id="borrar">Borrar</button>
+  <button type="button" id="guardar">Guardar como imagen</button>
+</div>
+
+<h2>Guardar el dibujo</h2>
+<hr>
+<p>El método <code>toDataURL()</code> convierte lo dibujado en una imagen (PNG). Si se la da a un enlace con el atributo <code>download</code>, el navegador la descarga. Es lo que hace el botón "Guardar como imagen" de arriba.</p>
+<pre><code>var enlace = document.createElement("a");
+enlace.href = lienzo.toDataURL("image/png");
+enlace.download = "mi-dibujo.png";
+enlace.click();</code></pre>
+
+<h2>Animación sencilla</h2>
+<hr>
+<p>Una animación es repetir tres pasos: <strong>borrar</strong> el cuadro anterior, <strong>cambiar</strong> la posición y <strong>dibujar</strong> de nuevo. Con <code>setInterval</code> se repite varias veces por segundo. Es la misma idea del stickman: cambiar de imagen cada cierto tiempo.</p>
+<pre><code>var x = 30;
+var dx = 4;
+
+function cuadro() {
+  ctx.clearRect(0, 0, anim.width, anim.height);   // borra el cuadro anterior
+  x = x + dx;
+  if (x &gt; anim.width - 20 || x &lt; 20) { dx = -dx; } // rebota en los bordes
+  ctx.beginPath();
+  ctx.arc(x, 60, 20, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+var reloj = setInterval(cuadro, 30);   // unos 33 cuadros por segundo
+// clearInterval(reloj) la detiene</code></pre>
+<div class="demo">
+  <canvas id="c-anim" width="400" height="120"></canvas>
+  <button type="button" id="pausa">Pausar</button>
+</div>
+
+<h2>Resumen de instrucciones</h2>
+<hr>
+<table>
+  <tr>
+    <th>Instrucción</th>
+    <th>Para qué sirve</th>
+  </tr>
+  <tr><td><code>getContext("2d")</code></td><td>Obtiene las herramientas de dibujo del lienzo.</td></tr>
+  <tr><td><code>fillRect(x, y, ancho, alto)</code></td><td>Dibuja un rectángulo relleno.</td></tr>
+  <tr><td><code>arc(x, y, radio, 0, Math.PI * 2)</code></td><td>Traza un círculo (luego se rellena con <code>fill()</code>).</td></tr>
+  <tr><td><code>fillText(texto, x, y)</code></td><td>Escribe texto.</td></tr>
+  <tr><td><code>moveTo</code> y <code>lineTo</code></td><td>Mueven el lápiz y trazan una línea (con <code>stroke()</code>).</td></tr>
+  <tr><td><code>clearRect(x, y, ancho, alto)</code></td><td>Borra una zona; sirve para animar.</td></tr>
+  <tr><td><code>toDataURL()</code></td><td>Convierte el dibujo en una imagen.</td></tr>
+</table>
+
+<nav class="paginado" aria-label="Anterior y siguiente">
+  <a class="ant" href="../web/javascript.html"><small>&larr; Anterior</small><span>JavaScript</span></a>
+  <a class="sig" href="../web/js_datos.html"><small>Siguiente &rarr;</small><span>JS: Datos y archivos</span></a>
+</nav>
+</main>
+<aside id="riel"></aside>
+</div>
+<footer id="pie">
+  <div class="contacto">
+    <div class="in">
+      <div>
+        <h2>¿Te gustó el estilo de esta página?</h2>
+        <p>Si quieres una web con un estilo parecido o tienes una idea, escríbeme.</p>
+      </div>
+      <a class="correo" href="mailto:angeluxpr@gmail.com?subject=Me%20gust%C3%B3%20el%20estilo%20de%20tu%20p%C3%A1gina">angeluxpr@gmail.com</a>
+    </div>
+  </div>
+  <div class="in">
+    <p>&copy; <span id="anio"></span> Práctica final FIEI por Alzamora</p>
+    <p>Algoritmos y Programación &middot; <a href="../conclusiones.html">Conclusiones</a> &middot; <a href="../bibliografia.html">Bibliografía</a></p>
+  </div>
+</footer>
+<script src="../../js/java.js"></script>
+<script src="../../js/js_canvas.js"></script>
+<script src="../../js/asistente.js"></script>
+</body>
+</html>

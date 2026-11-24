@@ -1,0 +1,23 @@
+AUDIOS DEL ASISTENTE
+====================
+Cada audio suena al pulsar "Explícame" en su página. El nombre del archivo
+debe coincidir EXACTAMENTE con el de la página. Si un archivo no existe,
+el asistente habla solo con el globo de texto.
+
+  inicio.mp3          (inicio.html)
+  algoritmo.mp3
+  pseudocodigo.mp3
+  diagramas.mp3
+  python_basico.mp3
+  python_pandas.mp3
+  javascript.mp3
+  js_canvas.mp3
+  js_datos.mp3
+  html_css.mp3
+  bibliografia.mp3    (bibliografia.html)
+  conclusiones.mp3    (conclusiones.html)
+
+asistente.mp3 es el audio de la portada (index.html).
+
+Los audios dicen el mismo texto que el globo de cada página (atributo
+data-asistente del <body>). Si cambias ese texto, hay que regenerar el audio.

@@ -1,0 +1,389 @@
+/* ==========================================================
+   Hoja de estilos - Algoritmos y Programación
+   Paleta: #eaf2f8  #c9dce8  #8aa9c4  #3e5c76  #1d2d44
+   (más un ámbar #c8872e que solo se usa en detalles pequeños)
+   ========================================================== */
+
+/* ---------- 1. Colores y medidas (variables) ----------
+   Se declaran una vez y se usan con var(--nombre) */
+:root {
+  --c1: #eaf2f8;
+  --c2: #c9dce8;
+  --c3: #8aa9c4;
+  --c4: #3e5c76;
+  --c5: #1d2d44;
+  --acento: #c8872e;
+  --acento-texto: #8a5a12;
+  --borde: #cdd9e4;
+  --suave: #4a617a;
+  --ancho: 1320px;          /* ancho máximo del sitio */
+  --lateral: 40px;          /* espacio a izquierda y derecha */
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+  --mono: Consolas, "Courier New", monospace;
+  --sombra-alzada: 0 16px 30px -8px rgba(29, 45, 68, .32), 0 4px 10px rgba(29, 45, 68, .10);
+}
+
+* { box-sizing: border-box; }
+
+/* ---------- 2. Base y fondo ---------- */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;                  /* en columna, para que el pie quede siempre abajo */
+  flex-direction: column;
+  position: relative;
+  z-index: 0;
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--c5);
+  background-color: #eef3f8;
+}
+/* La imagen de fondo va en una capa fija (no se mueve al hacer scroll).
+   El linear-gradient es solo una capa blanca semitransparente encima, para que el texto se lea. */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(238, 243, 248, .9), rgba(238, 243, 248, .9)),
+    url("../assets/img/fondo.jpg") center center / cover no-repeat;
+}
+
+h1, h2, h3, h4 { color: var(--c5); }
+h1 { font-family: var(--serif); font-size: 2.9rem; line-height: 1.1; margin: 0 0 6px; }
+h2 { font-size: 1.55rem; line-height: 1.3; margin: 0 0 6px; }
+h3 { font-size: 1.2rem; margin: 1.6em 0 .4em; color: var(--c4); }
+p, li { color: var(--c5); }
+p { margin: 0 0 1.05em; }
+a { color: var(--c4); }
+a:hover { color: var(--c5); }
+strong { color: #000; font-weight: 800; }     /* puntos clave: negro, como en un libro */
+hr { border: 0; height: 2px; background: var(--c2); margin: 0 0 20px; }
+/* La raya que va debajo de cada h2: un tramo ámbar corto y el resto celeste */
+h2 + hr { background: linear-gradient(90deg, var(--acento) 0 56px, var(--c2) 56px); }
+
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--c3); outline-offset: 2px; }
+
+/* ---------- 3. Cabecera, menú y pie ---------- */
+.in {                              /* caja interior: centra el contenido con ancho máximo */
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding-left: var(--lateral);
+  padding-right: var(--lateral);
+}
+#cabecera { background: var(--c5); }
+#cabecera .in { display: flex; justify-content: space-between; align-items: baseline; padding-top: 15px; padding-bottom: 14px; }
+#cabecera .marca { font-family: var(--serif); font-size: 1.45rem; color: #fff; text-decoration: none; }
+#cabecera .marca:hover { color: var(--c2); }
+#cabecera .curso { font-size: .85rem; color: var(--c3); }
+#cabecera .cab-der { display: flex; align-items: baseline; gap: 28px; }
+#cabecera .mas { display: flex; gap: 22px; }
+#cabecera .mas a { font-size: .95rem; color: var(--c2); text-decoration: none; padding-bottom: 2px; border-bottom: 2px solid transparent; }
+#cabecera .mas a:hover { color: #fff; }
+#cabecera .mas a[aria-current="page"] { color: #fff; font-weight: 600; border-bottom-color: var(--acento); }
+
+#menu {
+  position: sticky;               /* se queda pegado arriba cuando haces scroll */
+  top: 0;
+  z-index: 40;
+  background: var(--c4);
+}
+#menu .in {
+  display: flex;
+  overflow-x: auto;               /* si no caben los enlaces, se desliza de lado */
+  padding-left: calc(var(--lateral) - 11px);
+  padding-right: calc(var(--lateral) - 11px);
+}
+#menu a {
+  flex: none;
+  padding: 14px 11px 11px;
+  color: #dce8f2;
+  font-size: .94rem;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+#menu a:hover { background: rgba(255, 255, 255, .09); color: #fff; }
+#menu a[aria-current="page"] { color: #fff; font-weight: 600; border-bottom-color: var(--acento); }   /* página actual */
+#menu .sep { flex: none; width: 1px; margin: 11px 9px; background: rgba(255, 255, 255, .24); }
+
+#pie { background: var(--c5); }
+#pie .in { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 18px; padding-bottom: 18px; }
+#pie p { margin: 0; font-size: .86rem; color: var(--c2); }
+#pie a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }     /* enlace "Bibliografía" */
+#pie a:hover { color: var(--acento); }
+
+/* Contacto: franja arriba del copyright, con el correo como botón */
+#pie .contacto { border-bottom: 1px solid rgba(201, 220, 232, .22); }
+#pie .contacto .in { align-items: center; gap: 16px 40px; padding-top: 30px; padding-bottom: 30px; }
+#pie .contacto h2 { margin: 0 0 4px; font-family: var(--sans); font-size: 1.2rem; color: #fff; }
+#pie .contacto p { font-size: 1rem; }
+#pie .correo {
+  padding: 11px 22px;
+  border: 2px solid var(--acento);
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  position: relative;
+  z-index: 60;                    /* queda por encima del asistente flotante del celular */
+  transition: transform .2s, background-color .2s, color .2s;
+}
+#pie .correo:hover, #pie .correo:focus-visible { background: var(--acento); color: var(--c5); transform: translateY(-3px); }
+#pie .correo:focus-visible { outline: 3px solid var(--c2); outline-offset: 3px; }
+
+/* ---------- 4. Encabezado de cada página (título + ilustración) ---------- */
+.encabezado .in { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; padding-top: 40px; padding-bottom: 6px; }
+.ruta { margin: 0 0 12px; font-size: .9rem; color: var(--suave); }
+.saludo-barra {
+  display: inline-block;
+  margin: 14px 0 0;
+  padding: 6px 16px 6px 14px;
+  font-family: var(--serif);
+  line-height: 1.5;
+  color: var(--c4);
+  background: rgba(201, 220, 232, .85);
+  border-left: 4px solid var(--acento);
+}
+.ilustracion {
+  flex: none;
+  width: 272px;
+  height: 170px;
+  border-radius: 0;                 /* esquinas rectas, como la portada de un libro */
+  box-shadow: 6px 6px 0 var(--c3);
+}
+
+/* Etiqueta de capítulo (arriba del título), plana y sin inclinar */
+.capitulo {
+  display: inline-block;
+  margin: 0 0 14px;
+  padding: 4px 12px;
+  background: var(--c5);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+/* ---------- 5. Estructura: contenido a la izquierda, asistente a la derecha ---------- */
+#cuerpo {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding: 26px var(--lateral) 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;   /* columna flexible + columna fija de 300px */
+  gap: 48px;
+  align-items: start;
+}
+#contenido {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  padding: 10px 54px 54px;
+}
+#contenido h2 { margin-top: 2em; }
+#contenido h2:first-child { margin-top: 1em; }
+#contenido a { overflow-wrap: anywhere; }      /* los enlaces largos (URL) se parten en vez de salirse */
+
+#riel { position: sticky; top: 66px; }          /* el asistente acompaña mientras haces scroll */
+
+/* ---------- 6. Elementos del contenido ---------- */
+ul, ol { margin: 0 0 1.2em; padding-left: 1.4em; }
+li { margin: .35em 0; }
+li::marker { color: var(--acento-texto); }
+
+table { width: 100%; margin: 6px 0 1.2em; border-collapse: collapse; border: 1px solid var(--borde); }
+th { background: var(--c5); color: #fff; text-align: left; padding: 11px 16px; }
+td { padding: 11px 16px; border-top: 1px solid var(--borde); vertical-align: top; overflow-wrap: anywhere; }   /* evita que una celda ancha rompa la página en el celular */
+tr:nth-child(even) td { background: #f4f8fb; }       /* filas alternadas */
+
+/* Bibliografía: formato APA con sangría francesa (la 2.ª línea entra un poco) */
+.apa { margin: 0 0 .6em; padding-left: 2em; text-indent: -2em; }
+.apa:last-child { margin-bottom: 0; }
+.tabla-biblio th:first-child, .tabla-biblio td:first-child { white-space: nowrap; }   /* que el nombre del tema no se parta */
+
+pre:focus-visible { outline: 3px solid var(--c3); outline-offset: 2px; }   /* código con scroll, alcanzable con Tab */
+
+figure { margin: 28px 0 10px; padding: 18px; background: #f4f8fb; border: 1px solid var(--borde); border-radius: 6px; }
+figure img { display: block; margin: 0 auto; max-width: 100%; height: auto; background: #fff; border: 1px solid var(--borde); }
+.pie-imagen { margin: 12px 0 0; font-size: .88rem; color: var(--suave); }
+img { max-width: 100%; height: auto; }
+iframe { display: block; width: 100%; height: 380px; border: 1px solid var(--borde); }
+
+pre {                                 /* bloques de código */
+  margin: 0 0 1.3em;
+  padding: 18px 22px;
+  background: var(--c5);
+  border-left: 4px solid var(--acento);
+  overflow-x: auto;
+  line-height: 1.55;
+}
+pre code { font-family: var(--mono); font-size: .93rem; color: var(--c1); }
+p code, td code, li code { font-family: var(--mono); font-size: .9em; padding: 1px 6px; background: var(--c1); border: 1px solid var(--c2); border-radius: 3px; }
+
+.salida {                              /* resultado de un ejemplo de JavaScript */
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 0 0 1.3em;
+  padding: 10px 16px;
+  font-weight: 600;
+  background: #f4f8fb;
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--c4);
+}
+.salida::before { content: "RESULTADO"; font-size: .74rem; letter-spacing: .1em; color: var(--suave); }
+
+/* ---------- 7. Ejemplos interactivos (js_canvas y js_datos) ---------- */
+.demo { margin: 4px 0 1.6em; padding: 18px 22px 16px; background: #f4f8fb; border: 1px solid var(--borde); border-left: 4px solid var(--c4); }
+.demo p { margin: 6px 0; }
+.demo canvas { display: block; max-width: 100%; margin: 10px 0; background: #fff; border: 2px solid var(--c4); }
+.demo canvas.libre { touch-action: none; cursor: crosshair; }
+.demo button, .boton {
+  display: inline-block;
+  margin: 2px 6px 2px 0;
+  padding: 9px 16px;
+  background: var(--c4);
+  color: #fff;
+  border: 1px solid var(--c4);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: .95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s, transform .15s;
+}
+.demo button:hover, .boton:hover { background: var(--c5); border-color: var(--c5); color: #fff; transform: translateY(-2px); }
+.demo input[type="text"], .demo input[type="date"] { padding: 8px 10px; border: 1px solid var(--c3); border-radius: 4px; font-family: inherit; font-size: .95rem; }
+.demo label { margin-right: 14px; white-space: nowrap; }
+.demo .tiempo { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 4px; }
+.demo .tiempo span { min-width: 92px; padding: 10px 14px; text-align: center; background: var(--c5); color: var(--c2); border-radius: 4px; font-size: .88rem; }
+.demo .tiempo b { display: block; font-size: 1.9rem; line-height: 1.2; color: #fff; font-family: var(--serif); }
+.demo pre { margin: 8px 0 0; }
+
+/* ---------- 8. Anterior / Siguiente (al final de cada tema) ---------- */
+.paginado { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 52px; }
+.paginado a {
+  display: block;
+  padding: 16px 22px 15px;
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  color: var(--c5);
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.paginado a:hover, .paginado a:focus-visible { transform: translateY(-5px); border-color: var(--c4); box-shadow: var(--sombra-alzada); }
+.paginado small { display: block; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--acento-texto); }
+.paginado span { font-size: 1.08rem; font-weight: 600; }
+.paginado .sig { text-align: right; grid-column: 2; }
+
+/* ---------- 9. Página de inicio: saludo y tarjetas ---------- */
+.encabezado-inicio .in { padding-top: 48px; padding-bottom: 14px; align-items: flex-end; }
+.encabezado-inicio h1 { font-size: 3.4rem; }
+.lead { margin: 14px 0 0; max-width: 42em; font-size: 1.15rem; color: var(--c4); }
+
+#saludo { flex: none; width: 300px; padding: 16px 20px; background-color: var(--c2); border-left: 4px solid var(--acento); transition: background-color 1s; }
+#saludo-texto { font-family: var(--serif); font-size: 1.22rem; line-height: 1.4; color: var(--c4); margin: 0 0 6px; }
+#contador { margin: 0 0 10px; font-size: .86rem; }
+#saludo button { padding: 8px 14px; background: var(--c5); color: #fff; border: 0; border-radius: 4px; font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer; transition: background-color .15s, transform .15s; }
+#saludo button:hover { background: var(--c4); transform: translateY(-2px); }
+
+.etiqueta-seccion { margin: 0 0 22px; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--suave); }
+.mapa { display: flex; flex-direction: column; gap: 52px; }
+
+/* Cabecera de cada módulo: número, nombre, descripción e ilustración */
+.modulo-cab { display: grid; grid-template-columns: auto 1fr auto; column-gap: 18px; align-items: center; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--borde); }
+.modulo-num { display: grid; place-items: center; width: 66px; height: 66px; background: var(--c5); color: #fff; font-family: var(--serif); font-size: 2rem; line-height: 1; }   /* bloque de color, como el número de un capítulo */
+.modulo:nth-of-type(2) .modulo-num { background: var(--c4); }
+.modulo:nth-of-type(3) .modulo-num { background: var(--c2); color: var(--c5); }
+.modulo-cab h3 { margin: 0; font-size: 1.55rem; color: var(--c5); }
+.modulo-cab p { margin: 3px 0 0; max-width: 56ch; font-size: .98rem; color: var(--suave); }
+.modulo-cab .ilustracion { grid-column: 3; grid-row: 1 / span 2; width: 208px; height: 130px; border-radius: 0; box-shadow: 5px 5px 0 var(--c3); }
+.modulo-cab > div { grid-column: 2; }
+
+/* Tarjetas de temas: cada tarjeta es un solo enlace */
+.temas { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; }   /* dos columnas de distinto ancho */
+a.tema {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 22px 16px;
+  background: #fff;
+  color: var(--c5);
+  text-decoration: none;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+/* ESTO es lo que hace que la tarjeta se alce al seleccionarla (mouse o teclado) */
+a.tema:hover, a.tema:focus-visible { transform: translateY(-6px); border-color: var(--c4); box-shadow: var(--sombra-alzada); }
+
+.tema .num { align-self: flex-start; margin-bottom: 8px; padding: 3px 10px; background: var(--c5); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }   /* etiqueta plana de libro */
+.tema h4 { margin: 2px 0 5px; font-size: 1.18rem; line-height: 1.3; color: var(--c5); }
+.tema p { margin: 0; font-size: .95rem; line-height: 1.5; color: var(--suave); }
+.tema .mini { margin: 12px 0 0; font-size: .82rem; line-height: 1.55; color: var(--c4); }
+.lista-mini { margin: 12px 0 0; padding-left: 1.1em; font-size: .86rem; color: var(--c4); }
+.lista-mini li { margin: 3px 0; color: var(--c4); }
+
+/* Tarjeta principal de cada módulo: oscura y más grande */
+a.tema.principal { padding: 26px 30px 24px; background: var(--c5); border-color: var(--c5); }
+a.tema.principal:hover, a.tema.principal:focus-visible { border-color: var(--c5); box-shadow: 0 18px 34px -8px rgba(29, 45, 68, .5); }
+.principal .num { background: var(--acento); color: var(--c5); }
+.principal h4 { margin-top: 4px; font-family: var(--serif); font-size: 1.95rem; line-height: 1.15; color: #fff; }
+.principal p { font-size: 1.02rem; color: var(--c2); }
+.principal .secciones { list-style: none; margin: 20px 0 22px; padding: 14px 0 0; columns: 2; border-top: 1px solid rgba(201, 220, 232, .25); }
+.principal .secciones li { margin: 0; padding: 3px 0; font-size: .88rem; line-height: 1.35; color: var(--c2); break-inside: avoid; }
+.principal .ir { margin-top: auto; font-size: .92rem; font-weight: 600; color: var(--acento); }
+.principal .ir::after { content: "\2192"; display: inline-block; margin-left: .45em; transition: transform .2s; }
+a.tema.principal:hover .ir::after { transform: translateX(5px); }
+
+.t-3 .principal { grid-row: span 2; }      /* ocupa 2 filas (a su derecha caben 2 tarjetas) */
+.t-4 .principal { grid-row: span 3; }      /* ocupa 3 filas */
+/* El módulo Web invierte la disposición (tarjeta principal a la derecha) para no repetir siempre lo mismo */
+.t-4 { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+.t-4 .principal { grid-column: 2; grid-row: 1 / span 3; }
+.t-4 a.tema:not(.principal) { grid-column: 1; }
+.t-4 .principal .secciones { columns: 1; }
+.t-4 .principal .secciones li { padding: 6px 0; font-size: .92rem; }
+
+/* ---------- 10. Pantallas medianas y celulares ---------- */
+@media (max-width: 1100px) {
+  :root { --lateral: 24px; }
+  #cuerpo { grid-template-columns: minmax(0, 1fr); }     /* una sola columna */
+  #riel { position: static; }
+  .encabezado-inicio .in { flex-direction: column; align-items: flex-start; gap: 22px; }
+}
+@media (max-width: 900px) {
+  .encabezado .ilustracion { display: none; }
+}
+@media (max-width: 760px) {
+  :root { --lateral: 16px; }
+  body { font-size: 16px; }
+  h1, .encabezado-inicio h1 { font-size: 2.1rem; }
+  #cabecera .curso { display: none; }
+  #cabecera .in { flex-wrap: wrap; gap: 6px 16px; }
+  #cabecera .marca { font-size: 1.2rem; }
+  #cabecera .mas { gap: 16px; }
+  #contenido { padding: 0 20px 34px; }
+  .paginado { grid-template-columns: 1fr; }
+  .paginado .sig { grid-column: 1; }
+  #saludo { width: 100%; }
+  .temas { grid-template-columns: minmax(0, 1fr); }
+  .t-3 .principal, .t-4 .principal { grid-row: auto; grid-column: auto; }
+  .t-4 a.tema:not(.principal) { grid-column: auto; }
+  .principal .secciones { columns: 1; }
+  .modulo-cab { grid-template-columns: auto 1fr; }
+  .modulo-cab .ilustracion { display: none; }
+  .demo label { white-space: normal; }
+  td, th { padding: 9px 11px; }
+}

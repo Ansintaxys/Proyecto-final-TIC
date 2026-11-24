@@ -1,0 +1,263 @@
+/* Portada - Aprende a Programar */
+/* Se carga después de estilos.css (cabecera, menú, pie y variables vienen de allí). */
+
+/* En la portada la imagen de fondo se ve más fuerte que en el resto del sitio
+   (la capa blanca encima es menos opaca: .76 en vez de .9) */
+body.es-portada::before {
+  background:
+    linear-gradient(rgba(238, 243, 248, .76), rgba(238, 243, 248, .76)),
+    url("../assets/img/fondo.jpg") center center / cover no-repeat;
+}
+
+.portada {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding: 60px var(--lateral) 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 410px;
+  gap: 64px;
+  align-items: stretch;
+}
+
+/* ---------- Columna izquierda ---------- */
+.hero { display: flex; flex-direction: column; min-width: 0; }
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 20px;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--c4);
+}
+.eyebrow::before { content: ""; width: 40px; height: 2px; background: var(--acento); }
+.hero h1 {
+  margin: 0 0 22px;
+  font-size: 4.8rem;
+  line-height: 1;
+  letter-spacing: -.025em;
+}
+.sub { max-width: 31em; margin: 0 0 32px; font-size: 1.28rem; line-height: 1.55; color: var(--c4); }
+.acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+.boton-principal { margin: 0; padding: 13px 26px; background: var(--c5); border-color: var(--c5); font-size: 1.02rem; }
+.enlace-sec {
+  padding-bottom: 2px;
+  color: var(--c5);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 2px solid var(--acento);
+}
+.enlace-sec:hover { color: var(--c4); }
+
+/* Asistente: se para delante del laptop del fondo */
+#animacion-container {
+  margin-top: auto;
+  padding-top: 30px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 340px);
+  grid-template-rows: auto 1fr;
+  column-gap: 30px;
+  justify-content: start;
+}
+#stick-imagen {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: block;
+  height: 520px;
+  width: auto;
+  transform-origin: 50% 100%;
+}
+#stick-imagen.hablando { animation: rebote .5s ease-in-out infinite; }
+@keyframes rebote {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+.burbuja {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  position: relative;
+  margin-top: 26px;
+  padding: 14px 18px;
+  background: #fff;
+  border: 2px solid var(--c4);
+  border-radius: 12px;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--c5);
+  box-shadow: 0 6px 16px rgba(29, 45, 68, .14);
+}
+.burbuja::after {                         /* piquito hacia el stickman */
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 22px;
+  border: 10px solid transparent;
+  border-right-color: var(--c4);
+  border-left: 0;
+}
+#boton-animacion {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  justify-self: start;
+  margin-top: 14px;
+  padding: 10px 20px;
+  background: var(--c4);
+  color: var(--c1);
+  border: 1px solid var(--c4);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: .98rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .15s, transform .15s;
+}
+#boton-animacion:hover { background: var(--c5); border-color: var(--c5); transform: translateY(-2px); }
+#boton-animacion.detener { background: #fff; color: var(--c5); }
+#boton-animacion.detener:hover { background: var(--c1); }
+
+/* ---------- Columna derecha: salas de práctica ---------- */
+#info {
+  display: flex;
+  flex-direction: column;
+  background: var(--c5);
+  color: var(--c1);
+  border-radius: 6px;
+  box-shadow: 0 24px 48px -14px rgba(29, 45, 68, .5);
+}
+#info h2 {
+  margin: 0;
+  padding: 20px 24px 4px;
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+#laboratorioNombre {
+  padding: 0 24px 16px;
+  font-size: .84rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--acento);
+  border-bottom: 1px solid rgba(201, 220, 232, .22);
+}
+#listaSalas { flex: 1; list-style: none; margin: 0; padding: 16px 18px 4px; }
+
+.sala {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  padding: 9px 14px;
+  background: var(--c4);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: var(--c1);
+  font-size: .93rem;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: transform .22s ease, box-shadow .22s, background-color .22s, border-color .22s;
+}
+.sala .nombre { display: block; font-weight: 700; }
+.sala .detalle { display: block; font-size: .78rem; color: var(--c2); }
+a.sala:hover, a.sala:focus-visible {       /* al seleccionar una sala libre, se levanta */
+  color: #fff;
+  transform: translateY(-5px);
+  background: #4a6c8a;
+  border-color: var(--c2);
+  box-shadow: 0 14px 22px rgba(0, 0, 0, .38);
+}
+a.sala:active { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0, 0, 0, .3); }
+a.sala:focus-visible { outline: 3px solid var(--c2); outline-offset: 2px; }
+
+.sala.ocupada {
+  background: transparent;
+  border: 1px dashed var(--c3);
+  color: var(--c3);
+  cursor: not-allowed;
+}
+.sala.ocupada .detalle { color: var(--c3); }
+
+.estado { white-space: nowrap; font-size: .8rem; font-weight: 700; }
+.libre .estado { color: #a5dfbc; }
+.libre .estado::before { content: "\2713  "; }
+.ocupada .estado { text-align: right; font-variant-numeric: tabular-nums; }
+.ocupada .estado small { display: block; font-size: .68rem; font-weight: 400; text-transform: uppercase; }
+
+.sala.nueva { animation: destello 1.4s ease-out; }
+@keyframes destello {
+  0%   { background: var(--c2); color: var(--c5); }
+  100% { background: var(--c4); color: var(--c1); }
+}
+
+#resumen {
+  margin: 8px 24px 14px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(201, 220, 232, .35);
+  font-size: .78rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--c2);
+}
+#boton-actualizar, .boton-entrar {
+  display: block;
+  width: calc(100% - 48px);
+  margin: 0 24px 10px;
+  padding: 11px 16px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: .95rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s, color .15s, transform .15s;
+}
+#boton-actualizar { background: transparent; color: var(--c2); border: 1px solid var(--c3); }
+#boton-actualizar:hover { background: var(--c4); color: #fff; transform: translateY(-2px); }
+.boton-entrar { background: var(--c1); color: var(--c5); border: 1px solid var(--c1); font-weight: 700; }
+.boton-entrar:hover { background: #fff; transform: translateY(-2px); }
+.nota { margin: 6px 24px 22px; font-size: .76rem; text-align: center; color: var(--c3); }
+
+#info button:focus-visible, #info .boton-entrar:focus-visible { outline: 3px solid var(--c2); outline-offset: 2px; }
+
+/* ---------- Pantallas bajas (laptops y proyectores de hasta 900 px de alto) ----------
+   Se compactan las medidas para que el asistente y los botones se vean sin bajar. */
+@media (min-width: 1001px) and (max-height: 900px) {
+  .portada { padding-top: 22px; padding-bottom: 32px; gap: 48px; }
+  .eyebrow { margin-bottom: 10px; }
+  .hero h1 { font-size: clamp(2.6rem, 4.4vw, 3.8rem); margin-bottom: 12px; }
+  .sub { margin-bottom: 18px; font-size: 1.1rem; }
+  #animacion-container { margin-top: 22px; padding-top: 0; }     /* el asistente queda justo debajo de los botones */
+  #stick-imagen { height: 300px; }
+  .burbuja { margin-top: 14px; }
+  #info h2 { padding-top: 12px; font-size: 1rem; }
+  #laboratorioNombre { padding-bottom: 10px; }
+  #listaSalas { padding-top: 10px; }
+  .sala { margin-bottom: 4px; padding: 5px 12px; }
+  .sala .detalle { display: none; }                               /* se oculta el subtítulo de cada sala */
+  #resumen { margin: 2px 24px 10px; padding-top: 8px; font-size: .72rem; letter-spacing: 0; }
+  #boton-actualizar, .boton-entrar { padding: 8px 16px; margin-bottom: 8px; }
+  .nota { margin: 2px 24px 12px; }
+}
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 1000px) {
+  .portada { grid-template-columns: minmax(0, 1fr); gap: 44px; padding-top: 40px; }
+  .hero h1 { font-size: 3.4rem; }
+  #stick-imagen { height: 300px; }
+}
+@media (max-width: 560px) {
+  .hero h1 { font-size: 2.6rem; }
+  .portada { padding-bottom: 48px; }
+  #animacion-container { grid-template-columns: auto minmax(0, 1fr); column-gap: 16px; }
+  #stick-imagen { height: 210px; }
+  .burbuja { font-size: .92rem; padding: 10px 12px; }
+}
